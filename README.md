@@ -23,6 +23,7 @@
 
 - VSCode 用に leetcode プラグインがあることを発見したのでそちらを使っていく。
 - [vscode-leetcode](https://github.com/LeetCode-OpenSource/vscode-leetcode)
+- 自分用の[問題進捗管理表](https://docs.google.com/spreadsheets/d/1L5IpC1EY417nYDbwfgHs2CK1ftLPL2q2SIedWrNfA-c/edit?gid=0#gid=0)をまとめています
 
 - 毎日一問以上とく
 - 問題を解いた時の手応えの参考は[コーディングの練習方法](https://hayapenguin.com/notes/Posts/2024/04/24/how-to-practice-coding-effectively)にて紹介のあった以下に従う
