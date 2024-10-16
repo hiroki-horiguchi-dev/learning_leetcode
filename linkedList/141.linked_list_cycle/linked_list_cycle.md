@@ -15,7 +15,7 @@
 ## 所感
 - set でやる方法もフロイドのアルゴリズムを知る前なら考えついたかも、なるほどな
 
-## 1th
+## 1st
 ```kotlin
     fun hasCycle(head: ListNode?): Boolean {
         if (head == null) return false
