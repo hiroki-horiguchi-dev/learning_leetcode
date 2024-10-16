@@ -20,9 +20,9 @@ class Solution {
         if (head == null) return false
 
         var slow = head
-        var fast = head.next
+        var fast = head
 
-        while (slow != null || fast != null) {
+        while (fast != null && fast?.next != null) {
             if (slow == fast) {
                 return true
             }
