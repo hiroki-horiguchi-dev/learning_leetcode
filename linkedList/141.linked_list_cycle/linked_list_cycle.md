@@ -14,3 +14,31 @@
 
 ## 所感
 - set でやる方法もフロイドのアルゴリズムを知る前なら考えついたかも、なるほどな
+
+## 1th
+```kotlin
+    fun hasCycle(head: ListNode?): Boolean {
+        if (head == null) return false
+
+        var slow = head
+        var fast = head
+
+        while (fast != null && fast?.next != null) {
+            if (slow == fast) {
+                return true
+            }
+            slow = slow?.next
+            fast = fast?.next?.next
+        }
+
+        return false
+    }
+```
+
+## 2nd
+
+## 3rd
+
+## 4th
+
+## 5th
