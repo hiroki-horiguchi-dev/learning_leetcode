@@ -9,6 +9,8 @@
 ![alt text](image.png)
 
 
-## 別解および所感
+## 別解
 - https://github.com/hayashi-ay/leetcode/pull/15/files を参照
+
+## 所感
 - set でやる方法もフロイドのアルゴリズムを知る前なら考えついたかも、なるほどな
