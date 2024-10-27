@@ -10,15 +10,16 @@ class Solution {
         if (nums.isEmpty()) return 0
         if (nums.size == 1) return nums[0]
 
-        val dp = IntArray(nums.size)
-        dp[0] = nums[0]
-        dp[1] = maxOf(nums[0], nums[1])
-        
-        for (i in 2 until nums.size) {
-            dp[i] = maxOf(dp[i-1], dp[i-2] + nums[i])
-        } 
+        var prev1 = maxOf(nums[0], nums[1])
+        var prev2 = nums[0]
 
-        return dp[nums.size - 1]
+        for (i in 2..nums.size - 1) {
+            val temp = prev1
+            prev1 = maxOf(prev1, prev2 + nums[i])
+            prev2 = temp
+        }
+
+        return prev1
     }
 }
 // @lc code=end
