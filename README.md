@@ -29,3 +29,9 @@
 - 問題を解いた時の手応えの参考は[コーディングの練習方法](https://hayapenguin.com/notes/Posts/2024/04/24/how-to-practice-coding-effectively)にて紹介のあった以下に従う
 
  ![alt text](/images/image.png)
+
+ ## 継続できない時期
+ - 進捗が悪くなってきたので以下の本、動画を見てモチベーションを上げています
+ - [プログラミングコンテスト攻略のためのアルゴリズムとデータ構造 単行本（ソフトカバー） – 2015/1/30](https://www.amazon.co.jp/dp/4839952957?ref=ppx_yo2ov_dt_b_fed_asin_title)
+ - [世界で闘うプログラミング力を鍛える本 ~コーディング面接189問とその解法~ 単行本（ソフトカバー） – 2017/2/27](https://www.amazon.co.jp/gp/product/4839960100/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1)
+ - [Leetcodeってどうやって使うの？](https://www.youtube.com/watch?v=I5200JMYLNE)
