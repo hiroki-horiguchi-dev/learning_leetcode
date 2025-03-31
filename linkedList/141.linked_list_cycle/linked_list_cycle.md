@@ -57,7 +57,7 @@
 ```
 - これについてはもう考えなくても手が動く
 ## 3rd
-- こっちの方が綺麗
+- こっちの方が綺麗でわかりやすい気がした
 ```java
 public class Solution {
     public boolean hasCycle(ListNode head) {
@@ -75,11 +75,7 @@ public class Solution {
             }
         }
 
-        if (slow == fast) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 }
 ```
