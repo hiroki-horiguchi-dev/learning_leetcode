@@ -29,3 +29,6 @@
 - 問題を解いた時の手応えの参考は[コーディングの練習方法](https://hayapenguin.com/notes/Posts/2024/04/24/how-to-practice-coding-effectively)にて紹介のあった以下に従う
 
  ![alt text](/images/image.png)
+ 
+## お気持ちまとめスプレッドシート
+- [お気持ち&進捗管理用スプレッドシート](https://docs.google.com/spreadsheets/d/1L5IpC1EY417nYDbwfgHs2CK1ftLPL2q2SIedWrNfA-c/edit?gid=0#gid=0)
