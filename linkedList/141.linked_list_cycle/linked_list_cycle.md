@@ -36,8 +36,49 @@
 ```
 
 ## 2nd
+```kotlin
+    fun hasCycle(head: ListNode?): Boolean {
+        if (head == null) return false
 
+        var slow = head
+        var fast = head
+
+        while (fast != null && fast.next != null) {
+            slow = slow?.next
+            fast = fast?.next?.next
+
+            if (slow == fast) {
+                return true
+            }
+        }
+
+        return false
+    }
+```
+- これについてはもう考えなくても手が動く
 ## 3rd
+- こっちの方が綺麗でわかりやすい気がした
+```java
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) return false;
+
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+```
 
 ## 4th
 
