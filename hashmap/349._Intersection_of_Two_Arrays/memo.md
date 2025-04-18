@@ -37,6 +37,22 @@ class Solution {
     - そもそもなんでプリミティブ型とラッパー型に分かれているんだっけ？
         - プリミティブ型は C っぽい感じ int は 4バイト
         - ラッパー型はラッパーなので便利な感じ、16~24バイトくらい
+- 時間計算量
+  ```markdown
+    1. stream で O(N) だよね、boxed は O(1)、collect も stream の流れを汲んでいるので set1,set2 の準備で 2*O(N)
+    2. そのあと retainAll で set1 から set2 にないものを削除してる
+       set1 に対して set2 を for で回して !set1.contains(set2.value) だったら set1.remove(set2.value)になるから、最悪 set2 の要素N回分 delete が走るので O(N * Setの detele時間) になるかな
+       そして最後に set1 を int[] に戻しているのでここで O(N)
+    3. 定数無視して、最終的に O(N)
+    ```
+- 空間計算量
+  ```markdown
+    1. set1 を用意する際に N = nums1.size とすると O(N)、最悪 O(10^3)
+    2. set2 を用意する際に同様に M = nums2.size とすると O(M) 、最悪 O(10^3)
+    3. retainAll では set1 への変更のみなので特に不要
+    4. 最後の int[] 配列生成時、set1 の要素数 K 個分の Array を作るので O(K), ただし K <= N,M
+    5. 厳密には O(M + N + K) になるが、k は M,N と比較すると十分小さいので O(M+N)として良い
+  ```
 ## 2nd
 
 ## 3rd
