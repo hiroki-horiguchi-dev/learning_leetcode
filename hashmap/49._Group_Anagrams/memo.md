@@ -30,6 +30,10 @@ class Solution {
     }
 }
 ```
+- 時間計算量と空間計算量
+  - ![img_1.png](img_1.png)
+  - ![img.png](img.png)
+  - ![img_2.png](img_2.png)
 ## 2nd
 
 ## 3rd
