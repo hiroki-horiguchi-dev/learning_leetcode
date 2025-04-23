@@ -53,7 +53,9 @@ class Solution {
 }
 ```
 - 時間計算量
+  - `O(n * m)`
 - 空間計算量
+  - `O(n * m)` 再帰関数がスタックに `n*m` 回乗る可能性があるので
 
 ### BFS (breadth-first search)
 ```java
