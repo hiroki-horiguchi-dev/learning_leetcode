@@ -58,8 +58,65 @@ class Solution {
   - `O(n * m)` 再帰関数がスタックに `n*m` 回乗る可能性があるので
 
 ### BFS (breadth-first search)
+- 初回なので chatGpt に書いてもらった、スタックオーバフローで落ちないのが魅力的とはいえ、やっぱり面倒くさくない BFS ？
 ```java
+import java.util.LinkedList;
+import java.util.Queue;
 
+class Solution {
+    private int column, row;
+    private final int WATER = 0;
+
+    public int maxAreaOfIsland(int[][] grid) {
+        int max = 0;
+        this.column = grid.length;
+        this.row = grid[0].length;
+
+        for (int i = 0; i < column; i++) {
+            for (int j = 0; j < row; j++) {
+                if (grid[i][j] == 1) {
+                    int count = bfs(grid, i, j);
+                    max = Math.max(max, count);
+                }
+            }
+        }
+
+        return max;
+    }
+
+    private int bfs(int[][] grid, int x, int y) {
+        // キューを使ってBFSを行う
+        Queue<int[]> queue = new LinkedList<>();
+        queue.offer(new int[]{x, y});
+        grid[x][y] = WATER; // 探索済みとして水に変更
+
+        int area = 0;
+
+        // 上下左右の移動方向を定義
+        int[] directions = {-1, 0, 1, 0, -1, 0}; // 上, 下, 左, 右
+
+        // BFS開始
+        while (!queue.isEmpty()) {
+            int[] current = queue.poll();
+            int cx = current[0], cy = current[1];
+            area++; // このセルは島の一部なので面積に加算
+
+            // 上下左右の探索
+            for (int i = 0; i < 4; i++) {
+                int nx = cx + directions[i * 2];
+                int ny = cy + directions[i * 2 + 1];
+
+                // グリッドの範囲内かつ、まだ訪れていない島（1）ならQueueに追加
+                if (nx >= 0 && nx < column && ny >= 0 && ny < row && grid[nx][ny] == 1) {
+                    grid[nx][ny] = WATER; // 訪れたセルを水に変更
+                    queue.offer(new int[]{nx, ny});
+                }
+            }
+        }
+
+        return area;
+    }
+}
 ```
 - 時間計算量
 - 空間計算量
