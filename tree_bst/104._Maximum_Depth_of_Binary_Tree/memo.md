@@ -130,6 +130,37 @@ class Solution {
 
 
 ## 2nd
+### DFS + 再帰
+- left, right に分けなくてもまあ書けるよね
+- あとはどこに着目するの？が大事だよなあ
+  - leaf なの？枝なの？null ノードなの？で分けられるからなあ
+  - 筋よく分けたい
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int maxDepth(TreeNode root) {
+      if (root == null) return 0;
+      // これいらないんだよね、leaf ノードに注目しすぎているけど、if (root == null) return 0 で以下のコード包括しちゃっているからね
+      // そういうところだぞ
+      if (root.left == null && root.right == null) return 1;
+      return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+    }
+}
+```
 
 ## 3rd
 
