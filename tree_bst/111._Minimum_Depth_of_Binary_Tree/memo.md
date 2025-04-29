@@ -140,7 +140,113 @@ class Solution {
   - `O(N)`
 
 ## 2nd
+### DFS + 再帰
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int minDepth(TreeNode root) {
+        if (root == null) return 0;
 
+        // 片方の子を持つ枝ノード
+        if (root.left == null) {
+            return minDepth(root.right) + 1;
+        }
+        if (root.right == null) {
+            return minDepth(root.left) + 1;
+        }
+
+        // 両方の子を持つ枝ノード
+        return Math.min(minDepth(root.left), minDepth(root.right)) + 1;
+    }
+}
+```
+### BFS
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int minDepth(TreeNode root) {
+        if (root == null) return 0;
+        Queue<NodeDepth> queue = new LinkedList<>();
+        queue.add(new NodeDepth(root, 1));
+
+        while (!queue.isEmpty()) {
+            NodeDepth nodeDepth = queue.poll();
+            TreeNode currentNode = nodeDepth.getCurrentNode();
+            int currentDepth = nodeDepth.getCurrentNodeDepth();
+
+            // ここは return の方が BFS の本質に近い
+            if (currentNode.left == null && currentNode.right == null) {
+                return currentDepth;
+            }
+
+            if (currentNode.left != null) {
+                queue.add(
+                    new NodeDepth(
+                        currentNode.left,
+                        currentDepth + 1
+                    )
+                );
+            }
+
+            if (currentNode.right != null) {
+                queue.add(
+                    new NodeDepth(
+                        currentNode.right,
+                        currentDepth + 1
+                    )
+                );
+            }
+        }
+
+        return 0;
+    }
+
+    class NodeDepth {
+        private TreeNode node;
+        private int currentDepth;
+        NodeDepth(TreeNode node, int currentDepth) {
+            this.node = node;
+            this.currentDepth = currentDepth;
+        }
+
+        TreeNode getCurrentNode() {
+            return this.node;
+        }
+
+        int getCurrentNodeDepth() {
+            return this.currentDepth;
+        }
+    }
+}
+```
 ## 3rd
 
 ## 4th
