@@ -31,7 +31,10 @@
  ![alt text](/images/image.png)
  
 ## お気持ちまとめスプレッドシート
-- [お気持ち&進捗管理用スプレッドシート](https://docs.google.com/spreadsheets/d/1L5IpC1EY417nYDbwfgHs2CK1ftLPL2q2SIedWrNfA-c/edit?gid=0#gid=0)
+- 1周目
+  - [お気持ち&進捗管理用スプレッドシート](https://docs.google.com/spreadsheets/d/1L5IpC1EY417nYDbwfgHs2CK1ftLPL2q2SIedWrNfA-c/edit?gid=0#gid=0)
+- 2周目
+  - 1周目が完了したら復習でもう一枚スプシ作って2周目のお気持ちまとめする
 
  ## 継続できない時期
  - 進捗が悪くなってきたので以下の本、動画を見てモチベーションを上げています
