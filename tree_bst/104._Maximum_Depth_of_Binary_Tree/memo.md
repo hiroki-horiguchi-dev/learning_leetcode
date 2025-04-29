@@ -163,6 +163,81 @@ class Solution {
 ```
 
 ## 3rd
+### DFS + 再帰
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if (root == null) return 0;
+        int left = maxDepth(root.left);
+        int right = maxDepth(root.right);
+
+        return Math.max(left, right) + 1;
+    }
+}
+```
+
+### BFS
+- Pair を使うのがいかがなものか？と思い始めてきた
+- より可読性を突き詰めるなら、Pair ではなく CurrentNode class を作った方がいいかもな
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if (root == null) return 0;
+
+        Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
+        queue.add(new Pair(root, 1));
+        Integer maxDepth = Integer.MIN_VALUE;
+
+        while (!queue.isEmpty()) {
+            Pair<TreeNode, Integer> currentPair = queue.poll();
+            TreeNode node = currentPair.getKey();
+            Integer currentDepth = currentPair.getValue();
+
+            maxDepth = Math.max(maxDepth, currentDepth);
+
+            if (node.left != null) {
+                queue.add(new Pair(node.left, currentDepth + 1));
+            }
+
+            if (node.right != null) {
+                queue.add(new Pair(node.right, currentDepth + 1));
+            }
+        }
+
+        return maxDepth;
+    }
+}
+```
 
 ## 4th
 
