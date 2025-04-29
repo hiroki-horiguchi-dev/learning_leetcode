@@ -146,7 +146,91 @@ class Solution {
   - `O(N)` Queue に積むオブジェクトの数が最悪で tree.size になるから
 
 ## 2nd
+- 方針
+  - この問題は BFS の方が適しているような気がする、DFS もやるけれども
+### BFS
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        // 探索系なので BFS が使いやすい
+        // 直感的に足し合せで考えるのがいいな
+        if (root == null) return false;
 
+        Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
+        queue.add(new Pair(root, root.val));
+
+        while (!queue.isEmpty()) {
+            Pair<TreeNode, Integer> pair = queue.poll();
+            TreeNode currentNode = pair.getKey();
+            int prefixSum = pair.getValue();
+
+            // leaf node 
+            if (currentNode.left == null && currentNode.right == null) {
+                if (prefixSum == targetSum) return true;
+            }
+
+            if (currentNode.left != null) {
+                queue.add(new Pair(currentNode.left, prefixSum + currentNode.left.val));
+            }
+
+            if (currentNode.right != null) {
+                queue.add(new Pair(currentNode.right, prefixSum + currentNode.right.val));
+            }
+        }
+
+        return false;
+    }
+}
+```
+
+### DFS(再帰)
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if (root == null) return false;
+
+        // leaf node
+        if (root.left == null && root.right == null) {
+            if (targetSum == root.val) return true;
+        }
+
+        // left, right
+        boolean left = hasPathSum(root.left, targetSum - root.val);
+        boolean right = hasPathSum(root.right, targetSum - root.val);
+        return left || right;
+    }
+}
+```
 ## 3rd
 
 ## 4th
