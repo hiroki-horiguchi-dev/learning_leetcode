@@ -211,31 +211,48 @@ class Solution {
  * }
  */
 class Solution {
-    public int maxDepth(TreeNode root) {
-        if (root == null) return 0;
+  public int maxDepth(TreeNode root) {
+    if (root == null) return 0;
 
-        Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
-        queue.add(new Pair(root, 1));
-        Integer maxDepth = Integer.MIN_VALUE;
+    Queue<NodeDepth> queue = new LinkedList<>();
+    queue.add(new NodeDepth(root, 1));
+    int maxDepth = 0;
 
-        while (!queue.isEmpty()) {
-            Pair<TreeNode, Integer> currentPair = queue.poll();
-            TreeNode node = currentPair.getKey();
-            Integer currentDepth = currentPair.getValue();
+    while (!queue.isEmpty()) {
+      NodeDepth nodeDepth = queue.poll();
+      TreeNode node = nodeDepth.getCurrentNode();
+      int currentDepth = nodeDepth.getCurrentNodeDepth();
 
-            maxDepth = Math.max(maxDepth, currentDepth);
+      maxDepth = Math.max(maxDepth, currentDepth);
 
-            if (node.left != null) {
-                queue.add(new Pair(node.left, currentDepth + 1));
-            }
+      if (node.left != null) {
+        queue.add(new NodeDepth(node.left, currentDepth + 1));
+      }
 
-            if (node.right != null) {
-                queue.add(new Pair(node.right, currentDepth + 1));
-            }
-        }
-
-        return maxDepth;
+      if (node.right != null) {
+        queue.add(new NodeDepth(node.right, currentDepth + 1));
+      }
     }
+
+    return maxDepth;
+  }
+
+  class NodeDepth {
+    private TreeNode node;
+    private int currentDepth;
+    NodeDepth(TreeNode node, int currentDepth) {
+      this.node = node;
+      this.currentDepth = currentDepth;
+    }
+
+    TreeNode getCurrentNode() {
+      return this.node;
+    }
+
+    int getCurrentNodeDepth() {
+      return this.currentDepth;
+    }
+  }
 }
 ```
 
