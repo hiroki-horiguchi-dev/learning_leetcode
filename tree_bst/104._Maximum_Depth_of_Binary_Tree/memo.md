@@ -285,4 +285,66 @@ class Solution {
 }
 ```
 
+- BFS もね
+- 所要時間 13分 
+  - Pair クラス自作で手打ちに時間かかりがち
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int maxDepth(TreeNode root) {
+       // BFS
+        if (root == null) return 0;
+
+        int depth = 0;
+        Queue<Pair> queue = new LinkedList<>();
+        queue.add(new Pair(root, 1));
+
+        while (!queue.isEmpty()) {
+            Pair pair = queue.poll();
+            TreeNode node = pair.getNode();
+            int level = pair.getDepth();
+
+            depth = Math.max(depth, level);
+            
+            if (node.left != null) queue.add(new Pair(node.left, level + 1));
+            if (node.right != null) queue.add(new Pair(node.right, level + 1));
+        }
+
+        return depth;
+    }
+
+    class Pair {
+        private TreeNode node;
+        private Integer depth;
+
+        Pair(TreeNode node, Integer depth) {
+            this.node = node;
+            this.depth = depth;
+        }
+
+        TreeNode getNode() {
+            return this.node;
+        }
+
+        int getDepth() {
+            return this.depth;
+        }
+    }
+}
+```
+
 ## 5th
