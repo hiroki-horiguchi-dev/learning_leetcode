@@ -86,7 +86,83 @@ class Solution {
     - Queue に詰める際にメモリ使うので、tree.size に依存して O(N)
 
 ## 2nd
+- 方針は BFS
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        // BFS, DFS でもいけるっちゃいけそう
+        // min と max を保持し続ける必要がある
 
+        if (root == null) return false;
+
+        // 左に行く時は最大値を渡し続ける
+        // 右に行く時は最小値を渡し続ける
+        Queue<Triple> queue = new LinkedList();
+        // -2^31 の判定処理のため long を使う
+        queue.add(new Triple(root, Long.MIN_VALUE, Long.MAX_VALUE));
+
+        while (!queue.isEmpty()) {
+            Triple triple = queue.poll();
+            TreeNode node = triple.getCurrentNode();
+            long min = triple.getMinimumVal();
+            long max = triple.getMaximumVal();
+
+            // min, max の範囲外なら即 return
+            if (node.val <= min || max <= node.val) return false;
+
+            if (node.left != null) {
+                queue.add(new Triple(node.left, min, node.val));
+            }
+
+            if (node.right != null) {
+                queue.add(new Triple(node.right, node.val, max));
+            }
+        }
+
+        return true;
+    }
+
+
+    class Triple {
+        private TreeNode node;
+        private long min;
+        private long max;
+
+        Triple(TreeNode node, long min, long max) {
+            this.node = node;
+            this.min  = min;
+            this.max  = max;
+        }
+
+        TreeNode getCurrentNode() {
+            return this.node;
+        }
+
+        long getMinimumVal() {
+            return this.min;
+        }
+
+        long getMaximumVal() {
+            return this.max;
+        }
+    }
+}
+```
 ## 3rd
 
 ## 4th
