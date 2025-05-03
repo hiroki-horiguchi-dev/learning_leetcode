@@ -126,7 +126,59 @@ class Solution {
 }
 ```
 ## 3rd
+- BFS: 10分
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        // zigzag level order を返却する問題
+        // levelIndex(1で始まる) が偶数なら逆順に、奇数なら正順(で合ってるのか？)に Tree を走査することを意味する
+        // levelIndex ごとの走査なので BFS がベターと思う
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) return result;
 
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        int levelIndex = 1;
+        while (!queue.isEmpty()) {
+            int level = queue.size();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < level ; i++) {
+                TreeNode node = queue.poll();
+
+                // level の深さが偶数か奇数かによって list に add する順を変更
+                if (levelIndex % 2 == 1) {
+                    list.add(node.val);
+                } else {
+                    list.add(0, node.val);
+                }
+
+                if (node.left != null) queue.add(node.left);
+                if (node.right != null) queue.add(node.right);
+            }
+            result.add(list);
+            levelIndex++;
+        }
+
+        return result;
+    }
+}
+```
 ## 4th
 
 ## 5th
