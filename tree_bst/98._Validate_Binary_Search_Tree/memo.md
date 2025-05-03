@@ -4,7 +4,6 @@
     - ノードの左サブツリーには、そのノードより小さいキーを持つノードのみが含まれる
     - 同様に、右のサブツリーには、そのノードより大きいキーを持つノードだけが含まれる
       ![img.png](img.png)
-- BFS
 
 ### BFS
 - 方針は Queue につめながら node, 最大値、最小値を更新していく方法
@@ -164,6 +163,110 @@ class Solution {
 }
 ```
 ## 3rd
+- DFS でもいけるやろということで解いてみた
+- 所要時間: 30分
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        // 先に DFS で解いてみる
+        long min = Long.MIN_VALUE;
+        long max = Long.MAX_VALUE;
+        return isValidBSTHelper(root, min, max);
+    }
+
+    private boolean isValidBSTHelper(TreeNode root, long min, long max) {
+        // BST において、空の木も valid とみなせるため true. 
+        // 再起処理的にも false が投げられることなく null ノードへ到達したという意味で true を返している
+        if (root == null) return true;
+        // is Not valid を真っ先に見つけることを優先とする意図で書いてみた
+        if (root.val <= min || root.val >= max) return false;
+
+        return isValidBSTHelper(root.left, min, root.val) && isValidBSTHelper(root.right, root.val, max);
+    }
+}
+```
+
+### BFS
+- BFS: 20分
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        // BFS
+        Queue<Triple> queue = new LinkedList<>();
+        long max = Long.MAX_VALUE;
+        long min = Long.MIN_VALUE;
+        queue.add(new Triple(root, max, min));
+
+        while (!queue.isEmpty()) {
+            Triple triple = queue.poll();
+            TreeNode node = triple.getNode();
+            long currentMax = triple.getMax();
+            long currentMin = triple.getMin();
+
+            if (node.val <= currentMin || node.val >= currentMax) return false;
+
+            if (node.left != null) queue.add(new Triple(node.left, node.val, currentMin));
+            if (node.right != null) queue.add(new Triple(node.right, currentMax, node.val));
+        }
+
+        return true;
+    }
+
+    class Triple {
+        TreeNode node;
+        long max;
+        long min;
+
+        Triple(TreeNode node, long max, long min) {
+            this.node = node;
+            this.max  = max;
+            this.min  = min;
+        }
+
+        TreeNode getNode() {
+            return this.node;
+        }
+
+        long getMax() {
+            return this.max;
+        }
+
+        long getMin() {
+            return this.min;
+        }
+    }
+}
+```
 
 ## 4th
 
