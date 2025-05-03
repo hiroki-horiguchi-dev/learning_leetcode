@@ -232,7 +232,93 @@ class Solution {
 }
 ```
 ## 3rd
+- BFS: 9分
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        // 合致する条件があれば即座に return したいので BFS がベスト？
+        // DFS でも解けそう
+        // どっちが効率がいい？
+        // まず BFS で
 
+        if (root == null) return false;
+
+        Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
+        queue.add(new Pair(root, root.val));
+
+        while (!queue.isEmpty()) {
+            Pair<TreeNode, Integer> pair = queue.poll();
+            TreeNode node = pair.getKey();
+            Integer  prefixSum = pair.getValue();
+
+            // leaf node
+            if (node.left == null && node.right == null) {
+                if (prefixSum == targetSum) return true;
+            }
+
+            if (node.left != null) {
+                queue.add(new Pair(node.left, prefixSum + node.left.val));
+            }
+
+            if (node.right != null) {
+                queue.add(new Pair(node.right, prefixSum + node.right.val));
+            }
+        }
+
+        return false;
+    }
+}
+```
+
+- DFS: 10分
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        // DFS でも解いてみる
+        // BFS のような加算は引数が 3つ必要でもう一つメソッドを生やさないといけないので減算を使う
+        if (root == null) return false;
+
+        int prefixDifference = targetSum - root.val;
+
+        // leaf node
+        if (root.left == null && root.right == null) {
+            if (prefixDifference == 0) return true;
+        }
+
+        return hasPathSum(root.left, prefixDifference) || hasPathSum(root.right, prefixDifference);
+    }
+}
+```
 ## 4th
 
 ## 5th
