@@ -248,6 +248,103 @@ class Solution {
 }
 ```
 ## 3rd
+- DFS 10分
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int minDepth(TreeNode root) {
+        if (root == null) return 0;
+
+        // leaf node
+        if (root.left == null && root.right == null) {
+            return 1;
+        }
+
+        // 右に子を持つ可能性がある
+        if (root.left == null) {
+            return minDepth(root.right) + 1;
+        }
+
+        // 左に子を持つ可能性がある
+        if (root.right == null) {
+            return minDepth(root.left) + 1;
+        }
+
+        // 両方に子を持つ
+        return Math.min(
+                minDepth(root.left) + 1,
+                minDepth(root.right) + 1
+        );
+        
+    }
+}
+```
+
+- BFS
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int minDepth(TreeNode root) {
+        // BFS
+        // leaf node に到達した瞬間に return
+
+        if (root == null) return 0;
+
+        Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
+        queue.add(new Pair(root, 1));
+
+        while (!queue.isEmpty()) {
+            Pair<TreeNode, Integer> pair = queue.poll();
+            TreeNode node = pair.getKey();
+            Integer level = pair.getValue();
+
+            // leaf node を発見
+            if (node.left == null && node.right == null) {
+                return level;
+            }
+
+            if (node.left != null) {
+                queue.add(new Pair(node.left, level + 1));
+            }
+
+            if (node.right != null) {
+                queue.add(new Pair(node.right, level + 1));
+            }
+        }
+
+        // 文法上
+        return 0;
+    }
+}
+```
 
 ## 4th
 
