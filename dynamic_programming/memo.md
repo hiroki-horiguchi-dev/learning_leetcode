@@ -34,7 +34,7 @@ Longest Common Substring(X,Y) {
 - 例題7.1 をちゃんと解いてみる
 ![img.png](img.png)
 
-# LCSの文字列を「復元」するには？ 
+## LCSの文字列を「復元」するには？ 
 - 右下`（i = X.length, j = Y.length）`から始めて： 
 - `X[i-1] == Y[j-1]` なら： 
   - その文字は共通部分列に含まれる `X[i-1]` を記録して 
