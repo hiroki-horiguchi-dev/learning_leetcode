@@ -28,6 +28,8 @@ class Solution {
     }
 }
 ```
+- 全部書き出してんけど、やっぱり綺麗な BS じゃないよなあというお気持ちなので chatGpt に愚痴を聞いてもらった
+![img.png](img.png)
 ## 2nd
 
 ## 3rd
