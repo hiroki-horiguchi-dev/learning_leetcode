@@ -1,4 +1,5 @@
 # 1st
+- [最長増加部分列問題](https://www.geeksforgeeks.org/longest-increasing-subsequence-dp-3/)
 - Given an integer array nums, return the length of the longest strictly increasing subsequence.
 - int[] をあたえる、このサブシーケンスの中で厳密に増加している要素の長さを返せ.と言う問題
 ```text
@@ -139,6 +140,66 @@ class Solution {
   - `O(N)`
 
 # 2nd
+- 5/17 13:19 ~ 13:47
+- 時間 30分
+- 方針
+  - ![img_6.png](img_6.png)
+  - 制約から、O(n logn)で解けと言われているが
+  - dp[i] は常に nums[i] 番目までの strictly increasing 数を記録する方針を立ててみると、O(N) で解けるような気がした
+  - これで実装してみる
+- 結果
+  - Ex は AC するが submit で AC せず... 
+    - Ex のケースが通ったからって安心するだけじゃダメで、テストケースを自分で想定することが大事。。 
+    - 回答方針として、データ量から計算量的に大丈夫なものがいくつかある場合は可読性や実装難易度を見積もってコードインタビューを受ける際に最適なものを選択し、
+    - その上でテストケースを網羅的に並べ、それを満たすプログラムを書くことが求められていることを強く意識しないといけないな 
+    - 今回の見落としては、non-unique な値が nums[i] に存在した時に、dp[i] に dp[i-1] をコピーしてしまうこと
+```java
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp, 1);
+        // dp[i] は常に nums[i] 番目までの strictly increasing 数を記録する
+        // [4, 10, 4, 3, 8, 9] で詰む
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > nums[i - 1]) {
+                dp[i] = Math.max(dp[i], dp[i - 1] + 1);
+            } else {
+                dp[i] = dp[i - 1];
+            }
+        }
+        return dp[nums.length - 1];
+    }
+}
+```
+- どうにかできないか考えてみて、無理なら回答みる
+- 5/17 14:30 ~
+- 回答みたけど、フォローアップに従えば、確かに BS を使う問題だしその通りに解けばそうなるか。。というお気持ち
+- 今回は O(N^2) でも、最悪計算量が 9 * 10^6 なので許される
+```java
+/// dp っぽく、O(N^2)
+class Solution {
+  public int lengthOfLIS(int[] nums) {
+    int[] dp = new int[nums.length];
+    Arrays.fill(dp, 1);
+
+    for (int i = 1; i < nums.length; i++) {
+      for (int j = 0; j < i; j++) {
+        if (nums[i] > nums[j]) {
+          dp[i] = Math.max(dp[j] + 1, dp[i]);
+        }
+      }
+    }
+
+    int max = 0;
+    for (int candidate : dp) {
+      max = Math.max(max, candidate);
+    }
+
+    return max;
+  }
+}
+```
+- BS を使うのは O(N^2) が当たり前に書けるようになってからでいいや
 
 # 3rd
 
