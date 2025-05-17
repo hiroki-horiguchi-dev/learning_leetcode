@@ -124,6 +124,45 @@ class Solution {
 ![img_1.png](img_1.png)
 
 ## 2nd
+- Tree_BFS をやる中で不意にこれどうやるんだっけ？って思って取り組んだい
+- かかった時間が 30分程度。。まだまだ当たり前に解けている状態とは言い難い
+- Tree_BFS をやっているからか、そちらに思考が少し持って行かれてしまったのが時間がかかった原因
+- この問題はかなり素直な問題で、ただ島から海へ書き換えるためだけに再帰関数が便利だよね？に気付けば 5分で書ける問題なのよ。。
+### DFS
+```java
+class Solution {
+  public int numIslands(char[][] grid) {
+    int numIslands = 0;
+    // 全探索
+    for (int i = 0 ; i < grid.length; i++) {
+      for (int j = 0; j < grid[0].length; j++) {
+        // 島を発見
+        if (grid[i][j] == '1') {
+          numIslands += 1;
+          dfs(grid, i, j);
+        }
+      }
+    }
+
+    return numIslands;
+  }
+
+  // 島があったら海に変更するだけの再帰関数(木構造に対する再帰関数の使い方とはだいぶ違うね)
+  private void dfs(char[][] grid, int x, int y) {
+    if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length) {
+      return;
+    }
+    if (grid[x][y] != '1') return;
+
+    grid[x][y] = '0';
+    // 上下左右に dfs をかけ、隣接する島を海へ変更する
+    dfs(grid, x - 1, y); // top
+    dfs(grid, x + 1, y); // bottom
+    dfs(grid, x, y - 1); // left
+    dfs(grid, x, y + 1); // right
+  }
+}
+```
 
 ## 3rd
 
