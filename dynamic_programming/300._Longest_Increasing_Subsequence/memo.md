@@ -202,6 +202,148 @@ class Solution {
 - BS を使うのは O(N^2) が当たり前に書けるようになってからでいいや
 
 # 3rd
+- 苦手なので復習
+- ⚠️ 比較をするときに、dp と nums を間違える癖があるので注意
+- 厳密に増加しているサブシーケンスの個数を探す問題
+- ![img_7.png](img_7.png)
+- dp[i] に nums[i]番目までの厳密増加サブシーケンス数を記録する方針
+- dp[] のなかのどこかに最大値があるので O(N) で線形走査して最大値を探す必要があるのが厄介
+- O(N^2) で一旦 TLE しない程度のインプットなので、まずこちらの方針で書けるようにする
+```java
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp, 1);
+      
+        for (int i = 1; i < nums.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+        }
+
+        int max = 0;
+        for (int candidate : dp) {
+            max = Math.max(max, candidate);
+        }
+
+        return max;
+    }
+}
+```
+
+- O(n log(n)) で書く方針を試してみる
+  1. `dp[nums.length]` を用意
+  2. nums を for で回していく
+  3. 最長配列になる可能性を追い求めて dp を置換していく
+  4. それまでの最大配列長は記録済みだから別に置き換えて良い
+- 特に、最初にそこそこの長さの厳密増加部分配列が存在した後に、その長さを超えるサブシーケンスがあった場合の挙動を chatGpt に書かせてみた
+```text
+初期状態：
+  dp: []
+
+1. num = 3
+  dp: [3]       ← append
+           └── 3
+
+2. num = 10
+  dp: [3,10]    ← append
+           └── 3
+                └── 10
+
+3. num = 11
+  dp: [3,10,11] ← append
+           └── 3
+                └── 10
+                     └── 11
+
+4. num = 20
+  dp: [3,10,11,20] ← append
+           └── 3
+                └── 10
+                     └── 11
+                          └── 20
+
+5. num = 1
+  dp: [1,10,11,20] ← 3 → 1 に置換
+           └── 1
+                └── 10
+                     └── 11
+                          └── 20
+
+6. num = 2
+  dp: [1,2,11,20] ← 10 → 2 に置換
+           └── 1
+                └── 2
+                     └── 11
+                          └── 20
+
+7. num = 4
+  dp: [1,2,4,20] ← 11 → 4 に置換
+           └── 1
+                └── 2
+                     └── 4
+                          └── 20
+
+8. num = 5
+  dp: [1,2,4,5] ← 20 → 5 に置換
+           └── 1
+                └── 2
+                     └── 4
+                          └── 5
+
+9. num = 6
+  dp: [1,2,4,5,6] ← append
+           └── 1
+                └── 2
+                     └── 4
+                          └── 5
+                               └── 6
+
+10. num = 7
+  dp: [1,2,4,5,6,7] ← append
+           └── 1
+                └── 2
+                     └── 4
+                          └── 5
+                               └── 6
+                                    └── 7
+
+```
+```java
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        // BS 的なアプローチで解く
+        int[] dp = new int[nums.length];
+        int size = 0;
+
+        for (int num : nums) {
+            int i = upperBounds(dp, 0, size, num);
+            dp[i] = num;
+            if (i == size) size++;
+        }
+
+        return size;
+    }
+
+    private int upperBounds(int[] dp, int start, int end, int num) {
+        while (start < end) {
+            int middle = start + (end - start) / 2;
+
+            if (dp[middle] < num) {
+                // 右探索
+                start = middle + 1;
+            } else {
+                // 左探索
+                end = middle;
+            }
+        }
+
+        return start;
+    }
+}
+```
 
 # 4th
 
