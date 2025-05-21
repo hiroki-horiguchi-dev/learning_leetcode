@@ -26,6 +26,30 @@ class Solution {
   - `O(1)`
 
 ## 2nd
+- 5/22 8:25 ~ 
+- 方針
+  - easy なのにわからなくなってギブアップ。。。
+  - なんでこの方針がパッと思いつかないのか、、偶然パフォーマンス下振れしたか？
+```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        // prices.length が 10^5 なので、線形走査で終わらせないと TLE
+        // max の更新処理をひたすらしていけば良さそう
+        // 知りたいのは min がどこと、線形走査しているときの差が最も大きい値
+
+        int max = 0;
+        int min = prices[0];
+
+        for (int i = 1; i < prices.length; i++) {
+            int diff = prices[i] - min;
+            max = Math.max(max, diff);
+            min = Math.min(min, prices[i]);
+        }
+
+        return max;
+    }
+}
+```
 
 ## 3rd
 
