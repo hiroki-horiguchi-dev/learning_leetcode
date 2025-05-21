@@ -57,7 +57,34 @@ class Solution {
 ```
 
 ## 2nd
+- 5/22 8:40 ~ 8:53
+- 方針
+  - 計算量的に許される O(N^2) で解いた
+  - 初回に解いてから時間が空いていないので `dp[0] = true` を忘れずに記載したが、本番ではこういうところが穴になりそうで怖め。。 
+```java
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        // s.length が 10^3 なので O(N^2) までの計算量で解けば TLE しなそう
+        // i, j の二重ループで dp を作る
+        // ① HashSet の作成, collections をコンストラクタに取るので、これで Set が作成できる
+        Set<String> set = new HashSet<>(wordDict);
+        boolean[] isConsist = new boolean[s.length() + 1];
+        isConsist[0] = true;
 
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = 0; j < i; j++) {
+                // ① wordDict の走査が必要、List のままだと O(N) かかるので、Set に格納して検索させる
+                if (set.contains(s.substring(j, i)) && isConsist[j]) {
+                    isConsist[i] = true;
+                    break;
+                }
+            }
+        }
+
+        return isConsist[s.length()];
+    }
+}
+```
 ## 3rd
 
 ## 4th
