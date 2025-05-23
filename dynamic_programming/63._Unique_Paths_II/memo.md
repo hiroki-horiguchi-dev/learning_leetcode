@@ -94,7 +94,41 @@ obstacleGrid[i][j] is 0 or 1.
   - `O(m * n)` 
 
 # 2nd
+- 綺麗にかける
+```java
+class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        // ループは回すんだけど、O(m*n) でいいので計算量は問題ない
+        // 一行一列に障害物がある場合、行なら障害物より右は全て0,列なら障害物より下は全て0
+        // 1st より綺麗に描きたい
+        int m = obstacleGrid.length;
+        int n = obstacleGrid[0].length;
 
+        int[][] dp = new int[m][n];
+
+        boolean hasFirstRowObstacle = false;
+        boolean hasFirstColumnObstacle = false;
+
+        for (int y = 0; y < m; y++) {
+            for (int x = 0; x < n; x++) {
+                if (obstacleGrid[y][x] == 1) {
+                    dp[y][x] = 0;
+                    if (x == 0) hasFirstColumnObstacle = true;
+                    if (y == 0) hasFirstRowObstacle = true;
+                } else if (x == 0) {
+                    dp[y][x] = hasFirstColumnObstacle ? 0 : 1;
+                } else if (y == 0) {
+                    dp[y][x] = hasFirstRowObstacle ? 0 : 1;
+                } else {
+                    dp[y][x] = dp[y][x - 1] + dp[y - 1][x];
+                }
+            }
+        }
+
+        return dp[m - 1][n - 1];
+    }
+}
+```
 # 3rd
 
 # 4th

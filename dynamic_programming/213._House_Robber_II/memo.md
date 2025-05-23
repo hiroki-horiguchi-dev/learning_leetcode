@@ -45,6 +45,36 @@ class Solution {
   - `O(N)`
 
 ## 2nd
+- 方針
+  - ![img_2.png](img_2.png)
+  - より綺麗にするため、線形探索処理を別関数に切り出した
+  - nums[0], nums[nums.length - 1] 要素の締め出し処理は、別関数の中の線形走査時に nums を探索する処理で工夫している
+```java
+class Solution {
+    public int rob(int[] nums) {
+        int length = nums.length;
+        if (length == 1) return nums[0];
+        if (length == 2) return Math.max(nums[0], nums[1]);
+        return Math.max(
+            robLinear(nums, 0, nums.length - 2),
+            robLinear(nums, 1, nums.length - 1)
+        );
+    }
+
+    private int robLinear(int[] nums, int start, int end) {
+        int n = end - start + 1;
+        if (n == 1) return nums[start];
+        int[] dp = new int[n];
+        dp[0] = nums[start];
+        dp[1] = Math.max(nums[start], nums[start + 1]);
+        for (int i = 2; i < n; i++) {
+            dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i + start]);
+        }
+
+        return dp[n - 1];
+    }
+}
+```
 
 ## 3rd
 

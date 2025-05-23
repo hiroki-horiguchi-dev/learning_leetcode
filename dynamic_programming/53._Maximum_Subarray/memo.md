@@ -25,6 +25,28 @@ class Solution {
 ```
 
 ## 2nd
+- [Maximum Subarray Sum - Kadane's Algorithm](https://www.geeksforgeeks.org/largest-sum-contiguous-subarray/)
+- パッと思い出せないので、さっさとこのアルゴリズムの方針を見る
+- ![img.png](img.png)
+```java
+class Solution {
+    public int maxSubArray(int[] nums) {
+        // 制約から、線形で解かないと TLE
+        // dp[i] を i番目の要素を終点とする最大部分配列の和と定義する
+        
+        int maxEnding = nums[0];
+        int result = nums[0];
+
+        for (int i = 1; i < nums.length; i++) {
+            maxEnding = Math.max(maxEnding + nums[i], nums[i]);
+            result = Math.max(result, maxEnding);
+        }
+
+        return result;
+    }
+}
+```
+- サブアレイはこれでいいんだ
 
 ## 3rd
 

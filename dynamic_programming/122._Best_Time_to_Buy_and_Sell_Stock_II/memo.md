@@ -27,6 +27,28 @@ class Solution {
     - `O(1)` DP を使ってメモしていくよりも、計算量が少なく済むね
 
 ## 2nd
+- 2025/5/22 8:10 ~ 8:22
+- 方針
+  - ![img_2.png](img_2.png)
+  - 結局こうなっているだけなので、任意の日と次の日を比較して利益が出るなら取引し、利益を足し続ける方針がベスト
+```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        // max の更新処理で良さそう
+        // dp でメモするまでもない。。？
+        // prices.length の数的に線形走査の方針をとるしかなさそう
+        // 貪欲法だっけ？のようなイメージで、任意の日と次の日を比較してプラスなら買って売るを繰り返せば良さそう
+        int maxProfit = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i - 1] < prices[i]) {
+                maxProfit += prices[i] - prices[i - 1];
+            }
+        }
+
+        return maxProfit;
+    }
+}
+```
 
 ## 3rd
 

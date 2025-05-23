@@ -66,6 +66,29 @@ class Solution {
 - ![img_8.png](img_8.png)
 
 ## 2nd
+```java
+class Solution {
+    public int rob(int[] nums) {
+        // dp[i] で i番目までの最大値を記録する
+        // 次の家に盗みに入るか？は
+        // 前の家に盗みに入った時に得られるコイン数と
+        // 前の前の家に盗みに入って盗んだコインと今盗みに入る家のコインの和のうち大きい方を選択すれば良い
+        // nums.length が 10^2 だから別に O(N^2)でもいい
+        // O(N) で解く
+        if (nums.length == 1) return nums[0];
+
+        int[] dp = new int[nums.length];
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0], nums[1]);
+
+        for (int i = 2; i < nums.length; i++) {
+            dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
+        }
+
+        return dp[nums.length - 1];
+    }
+}
+```
 
 ## 3rd
 

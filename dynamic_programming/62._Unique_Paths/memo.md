@@ -37,6 +37,30 @@ Constraints:
   - `O(n * m)` で済む
 
 # 2nd
+- こういう視覚化されている問題がイメージ掴みやすくて楽
+```java
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int[][] dp = new int[m][n];
+
+        // 一行一列は全て 1
+        // それ以外は dp[i-1][j] と dp[i][j-1]要素の和で完成できる
+        // 一番わかりやすいメモ化だと思う
+        // O(m*n) で問題なく解ける
+        for (int y = 0; y < m; y++) {
+            for (int x = 0; x < n; x++) {
+                if (y == 0 || x == 0) {
+                    dp[y][x] = 1;
+                } else {
+                    dp[y][x] = dp[y][x - 1] + dp[y - 1][x];
+                }
+            }
+        }
+
+        return dp[m - 1][n - 1];
+    }
+}
+```
 
 # 3rd
 
