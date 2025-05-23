@@ -52,6 +52,35 @@ class Solution {
 ```
 
 ## 2nd
+- 方針
+```java
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+        // 問題文にあるように BS を使わないと実行時間で死ぬ
+        // 再帰でやるか、ループ でやるか。。
+        // 可読性の高いループを選択する
+        // 配列の要素を使った BS なので、文字列を substring するのと違うのが少し違和感ある
+        int start = 0;
+        int end   = nums.length - 1;
+
+        while (start <= end) {
+            int middle = start + (end - start) / 2;
+            if (target < nums[middle]) {
+                // 左探索
+                end = middle - 1;
+            } else if (nums[middle] < target) {
+                // 右探索
+                start = middle + 1;
+            } else {
+                // DFS っぽく見つけ次第即 return
+                return middle;
+            }
+        }
+
+        return start;
+    }
+}
+```
 
 ## 3rd
 
