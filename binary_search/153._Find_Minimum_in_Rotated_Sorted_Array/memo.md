@@ -31,6 +31,33 @@ class Solution {
 - 全部書き出してんけど、やっぱり綺麗な BS じゃないよなあというお気持ちなので chatGpt に愚痴を聞いてもらった
 ![img.png](img.png)
 ## 2nd
+- 実装方針
+![img_4.png](img_4.png)
+```java
+class Solution {
+  public int findMin(int[] nums) {
+    // 最小値返却問題
+    // O(log n) で解け、と言うことなので100%BS
+    int start = 0;
+    int end = nums.length - 1;
+
+    while (start < end) {
+      int middle = start + (end - start) / 2;
+      if (nums[middle] < nums[end]) {
+        // 左探索
+        // end を middleに更新
+        end = middle;
+      } else {
+        // 右探索
+        // start を middle + 1 に更新
+        start = middle + 1;
+      }
+    }
+
+    return nums[start];
+  }
+}
+```
 
 ## 3rd
 
