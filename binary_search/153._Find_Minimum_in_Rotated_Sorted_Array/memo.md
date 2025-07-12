@@ -1,5 +1,5 @@
 ## 1st
-- [153. Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/
+- [153. Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/)
 - ![img_1.png](img_1.png)
 - k 回ローテションされた昇順ソート済み配列から最小値を見つける問題
 - 方針
