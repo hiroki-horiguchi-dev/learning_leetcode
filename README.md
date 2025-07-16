@@ -35,7 +35,7 @@
 - [離散数学入門](https://www.youtube.com/@hayamizu)
  
 # お気持ちまとめスプレッドシート
-- 1周目
+- 1周目 完了🎉🎉🎉🎉🎉
   - [お気持ち&進捗管理用スプレッドシート](https://docs.google.com/spreadsheets/d/1L5IpC1EY417nYDbwfgHs2CK1ftLPL2q2SIedWrNfA-c/edit?gid=0#gid=0)
 - 2周目
   - 1周目が完了したら復習でもう一枚スプシ作って2周目のお気持ちまとめする
